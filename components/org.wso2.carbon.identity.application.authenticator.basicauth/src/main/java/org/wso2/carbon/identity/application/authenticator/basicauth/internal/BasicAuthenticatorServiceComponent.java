@@ -49,7 +49,6 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Properties;
 
@@ -191,7 +190,7 @@ public class BasicAuthenticatorServiceComponent {
      */
     private void buildReCaptchaFilterProperties() {
 
-        Path path = Paths.get(IdentityUtil.getIdentityConfigDirPath(), CaptchaConstants.CAPTCHA_CONFIG_FILE_NAME);
+        Path path = Path.of(IdentityUtil.getIdentityConfigDirPath(), CaptchaConstants.CAPTCHA_CONFIG_FILE_NAME);
 
         if (Files.exists(path)) {
             Properties properties = new Properties();

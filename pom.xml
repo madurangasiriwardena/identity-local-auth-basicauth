@@ -355,12 +355,11 @@
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.1</version>
+                <version>3.15.0</version>
                 <inherited>true</inherited>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                    <source>21</source>
-                    <target>21</target>
+                    <release>21</release>
                 </configuration>
             </plugin>
             <plugin>
@@ -418,7 +417,7 @@
         <maven.buildnumber.plugin.version>1.4</maven.buildnumber.plugin.version>
 
         <testng.version>7.10.1</testng.version>
-        <jacoco.version>0.8.12</jacoco.version>
+        <jacoco.version>0.8.14</jacoco.version>
         <maven.surefire.plugin.version>3.1.2</maven.surefire.plugin.version>
         <org.slf4j.verison>1.6.1</org.slf4j.verison>
         <org.mockito.version>5.3.1</org.mockito.version>

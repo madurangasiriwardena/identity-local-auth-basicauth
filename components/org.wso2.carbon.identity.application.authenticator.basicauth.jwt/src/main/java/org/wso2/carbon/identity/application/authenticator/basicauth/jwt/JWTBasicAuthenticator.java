@@ -189,8 +189,7 @@ public class JWTBasicAuthenticator extends BasicAuthenticator {
             return (X509Certificate) IdentityKeyStoreResolver.getInstance().getCertificate(tenantDomain,
                     IdentityKeyStoreResolverConstants.InboundProtocol.OAUTH);
         } catch (IdentityKeyStoreResolverException e) {
-            String errorMsg = String.format(
-                    "Error instantiating an X509Certificate object for the primary certificate in tenant: %s",
+            String errorMsg = "Error instantiating an X509Certificate object for the primary certificate in tenant: %s".formatted(
                     tenantDomain);
             if (log.isDebugEnabled()) {
                 log.debug(errorMsg, e);
@@ -206,7 +205,7 @@ public class JWTBasicAuthenticator extends BasicAuthenticator {
         JWSHeader header = signedJWT.getHeader();
         if (x509Certificate == null) {
             throw new AuthenticationFailedException(ErrorMessages.UNABLE_TO_LOCATE_CERTIFICATE_FOR_JWT.getCode(),
-                    String.format(ErrorMessages.UNABLE_TO_LOCATE_CERTIFICATE_FOR_JWT.getMessage(), header.toString()));
+                    ErrorMessages.UNABLE_TO_LOCATE_CERTIFICATE_FOR_JWT.getMessage().formatted(header.toString()));
         }
 
         JWSVerifier verifier;
@@ -222,8 +221,8 @@ public class JWTBasicAuthenticator extends BasicAuthenticator {
             // Only RSA Public Key is accepted.
             if (alg.indexOf("RS") == 0) {
                 PublicKey publicKey = x509Certificate.getPublicKey();
-                if (publicKey instanceof RSAPublicKey) {
-                    verifier = new RSASSAVerifier((RSAPublicKey) publicKey);
+                if (publicKey instanceof RSAPublicKey key) {
+                    verifier = new RSASSAVerifier(key);
                 } else {
                     throw new AuthenticationFailedException(
                             ErrorMessages.SIGNATURE_VALIDATION_PUBLIC_KEY_NOT_AN_RSA_PUBLIC_KEY.getCode(),
@@ -231,7 +230,7 @@ public class JWTBasicAuthenticator extends BasicAuthenticator {
                 }
             } else {
                 throw new AuthenticationFailedException(ErrorMessages.SIGNATURE_ALGORITHM_NOT_SUPPORTED.getCode(),
-                        String.format(ErrorMessages.SIGNATURE_ALGORITHM_NOT_SUPPORTED.getMessage(), alg));
+                        ErrorMessages.SIGNATURE_ALGORITHM_NOT_SUPPORTED.getMessage().formatted(alg));
             }
         }
 

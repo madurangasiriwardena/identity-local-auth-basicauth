@@ -61,7 +61,7 @@ public class PasswordOnboardExecutorTest {
         ExecutorResponse response = passwordOnboardExecutor.execute(mockFlowExecContext);
         assertEquals(response.getResult(), STATUS_USER_INPUT_REQUIRED);
         assertEquals(response.getRequiredData().size(), 1);
-        assertEquals(response.getRequiredData().get(0), PASSWORD);
+        assertEquals(response.getRequiredData().getFirst(), PASSWORD);
     }
 
     @Test

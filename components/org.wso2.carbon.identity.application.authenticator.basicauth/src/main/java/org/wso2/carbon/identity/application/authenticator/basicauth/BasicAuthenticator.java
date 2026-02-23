@@ -82,6 +82,7 @@ import org.wso2.carbon.utils.DiagnosticLog;
 import org.wso2.carbon.utils.multitenancy.MultitenantUtils;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -141,6 +142,7 @@ import static org.wso2.carbon.identity.core.util.IdentityCoreConstants.DEFAULT_A
 public class BasicAuthenticator extends AbstractApplicationAuthenticator
         implements LocalApplicationAuthenticator {
 
+    @Serial
     private static final long serialVersionUID = 1819664539416029785L;
     private static final String PASSWORD_PROPERTY = "PASSWORD_PROPERTY";
     private static final String CONFIRM_RECOVERY_DO = "/confirmrecovery.do?";
@@ -851,9 +853,9 @@ public class BasicAuthenticator extends AbstractApplicationAuthenticator
             // Sometimes client exceptions are wrapped in the super class.
             // Therefore checking for possible client exception.
             Throwable rootCause = ExceptionUtils.getRootCause(e);
-            if (rootCause instanceof UserStoreClientException) {
+            if (rootCause instanceof UserStoreClientException exception) {
                 IdentityErrorMsgContext customErrorMessageContext = new IdentityErrorMsgContext(
-                        ((UserStoreClientException) rootCause).getErrorCode() + ":" + rootCause.getMessage());
+                        exception.getErrorCode() + ":" + rootCause.getMessage());
                 IdentityUtil.setIdentityErrorMsg(customErrorMessageContext);
             }
 
@@ -1315,8 +1317,8 @@ public class BasicAuthenticator extends AbstractApplicationAuthenticator
                                               AuthenticationContext context) throws AuthenticationFailedException {
 
         String queryString;
-        if (request instanceof AuthenticationFrameworkWrapper) {
-            queryString = ((HttpServletRequest) ((AuthenticationFrameworkWrapper) request).getRequest())
+        if (request instanceof AuthenticationFrameworkWrapper wrapper) {
+            queryString = ((HttpServletRequest) wrapper.getRequest())
                     .getQueryString();
         } else {
             queryString = request.getQueryString();
@@ -1453,7 +1455,7 @@ public class BasicAuthenticator extends AbstractApplicationAuthenticator
                     String configuredPortalURL = BrandingPreferenceMgtUtils.buildConfiguredPortalURL(null,
                             tenantDomain,
                             BasicAuthenticatorDataHolder.getInstance().getBrandingPreferenceManager(), flowType);
-                    return String.format("%s?flowType=%s&", configuredPortalURL, flowType);
+                    return "%s?flowType=%s&".formatted(configuredPortalURL, flowType);
                 } catch (BrandingPreferenceMgtException | URLBuilderException e) {
                     log.error("Error while retrieving the portal URL for flowtype: " + flowType, e);
                 }

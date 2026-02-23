@@ -100,7 +100,7 @@ public class BasicAuthAuthAttributeHandlerTest {
             Assert.assertEquals(authAttribute.getType(), expectedAuthAttribute.getType(),
                     "Expected value not found for type field of the auth attribute: " + attribute);
             Assert.assertEquals(authAttribute.getProperties().size(), 0,
-                    String.format("Auth attribute: %s properties should be empty but contains values.", attribute));
+                    "Auth attribute: %s properties should be empty but contains values.".formatted(attribute));
         }
     }
 
@@ -139,7 +139,7 @@ public class BasicAuthAuthAttributeHandlerTest {
             ValidationResult validationResult = HANDLER.validateAttributes((Map<String, String>) attributeMap);
 
             if (validationResult.isValid() != expectedRes.isValid()) {
-                Assert.fail(String.format("Expected isValid to be: %s actual isValid: %s", validationResult.isValid(),
+                Assert.fail("Expected isValid to be: %s actual isValid: %s".formatted(validationResult.isValid(),
                         expectedRes.isValid()));
             }
 
@@ -182,7 +182,7 @@ public class BasicAuthAuthAttributeHandlerTest {
                         }
                     }
                     if (foundUnexpectedFailure) {
-                        Assert.fail(String.format("Unexpected errorCode: %s with reason: '%s' found for attribute: %s",
+                        Assert.fail("Unexpected errorCode: %s with reason: '%s' found for attribute: %s".formatted(
                                 aReason.getErrorCode(), aReason.getReason(), aReason.getAuthAttribute()));
                     }
                 }

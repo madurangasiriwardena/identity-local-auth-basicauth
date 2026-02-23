@@ -105,6 +105,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -1351,7 +1352,7 @@ public class BasicAuthenticatorTestCase {
 
         String super_tenant = CARBON_SUPER;
         String callbackUrl =
-                String.format("%s://%s:%s/%s", DUMMY_PROTOCOL, DUMMY_HOSTNAME, DUMMY_PORT, DUMMY_LOGIN_PAGEURL);
+                "%s://%s:%s/%s".formatted(DUMMY_PROTOCOL, DUMMY_HOSTNAME, DUMMY_PORT, DUMMY_LOGIN_PAGEURL);
         String callback = callbackUrl + "?" + DUMMY_QUERY_PARAMS + "&authenticators=BasicAuthenticator";
         return new String[][]{
                 {
@@ -1594,7 +1595,7 @@ public class BasicAuthenticatorTestCase {
             ServiceURL mockServiceURL = mock(ServiceURL.class);
             serviceURLBuilder.when(ServiceURLBuilder::create).thenReturn(mockServiceURLBuilderInstance);
             String callbackUrl =
-                    String.format("%s://%s:%s/%s", DUMMY_PROTOCOL, DUMMY_HOSTNAME, DUMMY_PORT, DUMMY_LOGIN_PAGEURL);
+                    "%s://%s:%s/%s".formatted(DUMMY_PROTOCOL, DUMMY_HOSTNAME, DUMMY_PORT, DUMMY_LOGIN_PAGEURL);
             when(mockServiceURLBuilderInstance.addPath(anyString())).thenReturn(mockServiceURLBuilderInstance);
             try {
                 when(mockServiceURLBuilderInstance.build()).thenReturn(mockServiceURL);
@@ -1835,7 +1836,7 @@ public class BasicAuthenticatorTestCase {
 
     private void validateResponseParam(String param, String actual, String expected) throws URISyntaxException {
 
-        URI actualURI = new URI(URLDecoder.decode(actual));
+        URI actualURI = new URI(URLDecoder.decode(actual, StandardCharsets.UTF_8));
         String[] actualQueryParams = actualURI.getQuery().split("&");
 
         for (String actualQueryParam : actualQueryParams) {

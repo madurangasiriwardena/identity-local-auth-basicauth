@@ -52,6 +52,7 @@ import org.wso2.carbon.identity.core.model.UserAgent;
 import org.wso2.carbon.identity.organization.management.service.exception.OrganizationManagementException;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,6 +76,7 @@ public class ActiveSessionsLimitHandler extends AbstractApplicationAuthenticator
 
     private static final Log log = LogFactory.getLog(ActiveSessionsLimitHandler.class);
 
+    @Serial
     private static final long serialVersionUID = -1304814600410853867L;
     private static final String REDIRECT_URL = "/authenticationendpoint/handle-multiple-sessions.do";
     public static final String DEFAULT_MAX_SESSION_COUNT = "1";

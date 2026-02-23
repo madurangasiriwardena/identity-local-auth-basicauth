@@ -98,7 +98,7 @@ public class JwtBasicAuthErrorConstants {
         @Override
         public String toString() {
 
-            return String.format("%s - %s", code, message);
+            return "%s - %s".formatted(code, message);
         }
     }
 }

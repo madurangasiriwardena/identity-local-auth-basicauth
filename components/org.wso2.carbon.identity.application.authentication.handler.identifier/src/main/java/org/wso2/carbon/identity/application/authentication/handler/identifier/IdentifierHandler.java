@@ -68,6 +68,7 @@ import org.wso2.carbon.utils.multitenancy.MultitenantConstants;
 import org.wso2.carbon.utils.multitenancy.MultitenantUtils;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.net.URLEncoder;
 import java.util.Base64;
 import java.util.HashMap;
@@ -107,6 +108,7 @@ import static org.wso2.carbon.user.core.UserCoreConstants.RealmConfig.PROPERTY_D
 public class IdentifierHandler extends AbstractApplicationAuthenticator
         implements AuthenticationFlowHandler {
 
+    @Serial
     private static final long serialVersionUID = 1819664539416029785L;
     private static final Log log = LogFactory.getLog(IdentifierHandler.class);
     private static final String PROMPT_CONFIRMATION_WINDOW = "promptConfirmationWindow";
@@ -815,8 +817,7 @@ public class IdentifierHandler extends AbstractApplicationAuthenticator
 
             if (userRealm == null) {
                 throw new AuthenticationFailedException(
-                        ErrorMessages.CANNOT_FIND_THE_USER_REALM_FOR_THE_GIVEN_TENANT.getCode(), String.format(
-                        ErrorMessages.CANNOT_FIND_THE_USER_REALM_FOR_THE_GIVEN_TENANT.getMessage(), tenantId),
+                        ErrorMessages.CANNOT_FIND_THE_USER_REALM_FOR_THE_GIVEN_TENANT.getCode(), ErrorMessages.CANNOT_FIND_THE_USER_REALM_FOR_THE_GIVEN_TENANT.getMessage().formatted(tenantId),
                         User.getUserFromUserName(username));
             }
 
